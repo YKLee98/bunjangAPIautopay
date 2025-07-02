@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "번개장터 자동구매",
+  "version": "1.0",
+  "description": "번개장터 API로 PID/배송비 입력시 자동 결제 (API키/배송지 저장 가능)",
+  "permissions": ["storage"],
+  "host_permissions": [
+    "https://openapi.bunjang.co.kr/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "options_page": "options.html"
+}

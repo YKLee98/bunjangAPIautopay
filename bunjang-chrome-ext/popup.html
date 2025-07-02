@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>번개장터 자동구매</title>
+  <style>
+    body { font-family: 'Noto Sans KR', sans-serif; width: 350px; margin: 10px; }
+    label { display: block; margin-top: 10px; }
+    input { width: 98%; padding: 6px; margin-top: 2px; }
+    button { margin-top: 16px; width: 100%; padding: 10px; font-size: 16px; }
+    #result { margin-top: 20px; font-weight: bold; }
+    #settings-link { float: right; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <h2>번개장터 자동구매 <a id="settings-link" href="#" title="설정">⚙️</a></h2>
+  <form id="buyForm">
+    <label>상품 PID <input type="text" id="pid" required></label>
+    <label>상품 가격(원) <input type="number" id="price" required></label>
+    <label>배송비(원) <input type="number" id="deliveryPrice" required></label>
+    <button type="submit">구매하기</button>
+  </form>
+  <div id="result"></div>
+  <script src="popup.js"></script>
+</body>
+</html>

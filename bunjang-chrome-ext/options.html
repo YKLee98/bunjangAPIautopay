@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>번개장터 자동구매 - 설정</title>
+  <style>
+    body { font-family: 'Noto Sans KR', sans-serif; margin: 30px; width: 350px; }
+    label { display: block; margin-top: 12px; }
+    input { width: 98%; padding: 6px; margin-top: 2px; }
+    button { margin-top: 18px; width: 100%; padding: 10px; font-size: 16px; }
+    #status { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>설정</h2>
+  <form id="optionsForm">
+    <label>API Access Key <input type="text" id="accessKey" required></label>
+    <label>API Secret Key(Base64) <input type="text" id="secretKey" required></label>
+    <label>수령인 <input type="text" id="recipient" required></label>
+    <label>연락처 <input type="text" id="phone" required></label>
+    <label>주소 <input type="text" id="address" required></label>
+    <label>우편번호 <input type="text" id="zipCode" required></label>
+    <button type="submit">저장</button>
+  </form>
+  <div id="status"></div>
+  <script src="options.js"></script>
+</body>
+</html>
