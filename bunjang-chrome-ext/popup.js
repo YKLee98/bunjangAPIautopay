@@ -31,9 +31,9 @@ async function generateJWT(accessKey, secretKeyBase64) {
   const currentTime = Math.floor(Date.now() / 1000);
   const payload = {
     accessKey,
-    iat: currentTime - 60,
+    iat: currentTime,
     exp: currentTime + 300,
-    nbf: currentTime - 60
+    nbf: currentTime
   };
   const toBase64 = (obj) => btoa(JSON.stringify(obj)).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
   const headerB64 = toBase64(header);
@@ -116,3 +116,4 @@ document.getElementById('buyForm').addEventListener('submit', async function(e) 
     }
   });
 });
+
