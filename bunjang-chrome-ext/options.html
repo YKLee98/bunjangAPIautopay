@@ -18,8 +18,9 @@
     <label>API Secret Key(Base64) <input type="text" id="secretKey" required></label>
     <label>수령인 <input type="text" id="recipient" required></label>
     <label>연락처 <input type="text" id="phone" required></label>
-    <label>주소 <input type="text" id="address" required></label>
-    <label>우편번호 <input type="text" id="zipCode" required></label>
+    <label>기본 주소 (도로명/지번) <input type="text" id="address1" placeholder="서울특별시 서초구 서초대로 38길 12" required></label>
+    <label>상세 주소 (동/호수 등) <input type="text" id="address2" placeholder="10층 101호" required></label>
+    <label>우편번호 <input type="text" id="zipCode" placeholder="12345" required></label>
     <button type="submit">저장</button>
   </form>
   <div id="status"></div>
