@@ -13,7 +13,7 @@ document.getElementById('settings-link').addEventListener('click', (e) => {
 // 저장된 배송지/키 자동 불러오기(없으면 경고)
 let saved = {};
 chrome.storage.local.get([
-  'accessKey', 'secretKey', 'recipient', 'phone', 'address', 'zipCode'
+  'accessKey', 'secretKey', 'recipient', 'phone', 'address1', 'address2', 'zipCode'
 ], (items) => {
   saved = items;
 });
@@ -28,9 +28,12 @@ function base64ToUint8Array(base64) {
 // JWT 생성 (HS256)
 async function generateJWT(accessKey, secretKeyBase64) {
   const header = { alg: "HS256", typ: "JWT" };
+  const currentTime = Math.floor(Date.now() / 1000);
   const payload = {
     accessKey,
-    iat: Math.floor(Date.now() / 1000)
+    iat: currentTime - 60,
+    exp: currentTime + 300,
+    nbf: currentTime - 60
   };
   const toBase64 = (obj) => btoa(JSON.stringify(obj)).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
   const headerB64 = toBase64(header);
@@ -52,13 +55,14 @@ document.getElementById('buyForm').addEventListener('submit', async function(e) 
   e.preventDefault();
   // 최신 저장값 불러오기
   chrome.storage.local.get([
-    'accessKey', 'secretKey', 'recipient', 'phone', 'address', 'zipCode'
+    'accessKey', 'secretKey', 'recipient', 'phone', 'address1', 'address2', 'zipCode'
   ], async (items) => {
     const accessKey = items.accessKey || '';
     const secretKey = items.secretKey || '';
     const recipient = items.recipient || '';
     const phone = items.phone || '';
-    const address = items.address || '';
+    const address1 = items.address1 || '';
+    const address2 = items.address2 || '';
     const zipCode = items.zipCode || '';
     const pid = document.getElementById('pid').value.trim();
     const price = document.getElementById('price').value.trim();
@@ -66,7 +70,7 @@ document.getElementById('buyForm').addEventListener('submit', async function(e) 
     const resultDiv = document.getElementById('result');
     resultDiv.textContent = '구매 요청 중...';
 
-    if (!accessKey || !secretKey || !recipient || !phone || !address || !zipCode) {
+    if (!accessKey || !secretKey || !recipient || !phone || !address1 || !address2 || !zipCode) {
       resultDiv.textContent = '❌ 먼저 [설정]에서 API키와 배송지 정보를 저장하세요!';
       return;
     }
@@ -79,12 +83,13 @@ document.getElementById('buyForm').addEventListener('submit', async function(e) 
           price: parseInt(price)
         },
         deliveryPrice: parseInt(deliveryPrice),
-        recipient: {
-          name: recipient,
-          phone: phone,
+        delivery: {
           address: {
-            zipCode: zipCode,
-            address: address
+            name: recipient,
+            phone: phone,
+            address1: address1,
+            address2: address2,
+            zipCode: zipCode
           }
         },
         message: "크롬 확장앱 자동구매",
